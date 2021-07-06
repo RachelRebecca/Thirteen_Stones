@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        bottomBarAndFabBinding.tvStatusCurrentPlayer.setText("Welcome");
+        //bottomBarAndFabBinding.tvStatusCurrentPlayer.setText("Welcome");
     }
 
     @Override
