@@ -1,0 +1,2 @@
+rootProject.name = "Thirteen Stones"
+include ':app'
