@@ -2,8 +2,7 @@ package com.example.thirteen_stones.models;
 
 import com.google.gson.Gson;
 
-public class ThirteenStones
-{
+public class ThirteenStones {
     private final static int sDEFAULT_PILE_START = 13;
     private int mNumberOfGamesPlayed = 0;
 
@@ -14,109 +13,90 @@ public class ThirteenStones
     private int mPileCurrent;
     private boolean mFirstPlayerTurn, mWinnerIsLastPlayerToPick; //false by default
 
-    public ThirteenStones ()
-    {
-        this (sDEFAULT_PILE_START, false);
+    public ThirteenStones() {
+        this(sDEFAULT_PILE_START, false);
     }
 
-    public ThirteenStones (int pileSize)
-    {
-        this (pileSize, false);
+    public ThirteenStones(int pileSize) {
+        this(pileSize, false);
     }
 
-    public ThirteenStones (int pileSize, boolean winnerIsLastPlayerToPick)
-    {
+    public ThirteenStones(int pileSize, boolean winnerIsLastPlayerToPick) {
         mPileStart = pileSize;
         mWinnerIsLastPlayerToPick = winnerIsLastPlayerToPick;
-        startGame ();
+        startGame();
     }
 
-    public void startGame ()
-    {
+    public void startGame() {
         mPileCurrent = mPileStart;
         mFirstPlayerTurn = true;
         mNumberOfGamesPlayed++;
     }
 
-    public void takeTurn (int amount)
-    {
-        if (!isGameOver ()) {
-            tryToTakeTurnWith (amount);
-        }
-        else {
-            throw new IllegalStateException ("May not take a turn while the game is over.");
+    public void takeTurn(int amount) {
+        if (!isGameOver()) {
+            tryToTakeTurnWith(amount);
+        } else {
+            throw new IllegalStateException("May not take a turn while the game is over.");
         }
     }
 
-    private void tryToTakeTurnWith (int amount)
-    {
-        if (isInMinToMaxRange (amount) && isNotGreaterThanPileCurrent (amount)) {
-            takeValidTurn (amount);
-        }
-        else {
+    private void tryToTakeTurnWith(int amount) {
+        if (isInMinToMaxRange(amount) && isNotGreaterThanPileCurrent(amount)) {
+            takeValidTurn(amount);
+        } else {
             throw new IllegalArgumentException
                     ("Pick Amount must be: " + sMIN_PICK + " - " + sMAX_PICK +
-                             " and up to number of remaining stones in the pile.");
+                            " and up to number of remaining stones in the pile.");
         }
     }
 
-    private boolean isNotGreaterThanPileCurrent (int amount)
-    {
+    private boolean isNotGreaterThanPileCurrent(int amount) {
         return amount <= mPileCurrent;
     }
 
-    private boolean isInMinToMaxRange (int amount)
-    {
+    private boolean isInMinToMaxRange(int amount) {
         return amount >= sMIN_PICK && amount <= sMAX_PICK;
     }
 
-    private void takeValidTurn (int amount)
-    {
+    private void takeValidTurn(int amount) {
         // decrement pile
         mPileCurrent -= amount;
 
         // switch player turns if not Game Over
-        if (!isGameOver ())
+        if (!isGameOver())
             mFirstPlayerTurn = !mFirstPlayerTurn;
     }
 
-    public boolean isGameOver ()
-    {
+    public boolean isGameOver() {
         return mPileCurrent <= 0;
     }
 
-    public boolean isWinnerIsLastPlayerToPick ()
-    {
+    public boolean isWinnerIsLastPlayerToPick() {
         return mWinnerIsLastPlayerToPick;
     }
 
-    public void setWinnerIsLastPlayerToPick (boolean winnerIsLastPlayerToPick)
-    {
+    public void setWinnerIsLastPlayerToPick(boolean winnerIsLastPlayerToPick) {
         mWinnerIsLastPlayerToPick = winnerIsLastPlayerToPick;
     }
 
-    public int getWinningPlayerNumber ()
-    {
+    public int getWinningPlayerNumber() {
         return (mWinnerIsLastPlayerToPick == mFirstPlayerTurn) ? 1 : 2;
     }
 
-    public int getCurrentPlayerNumber ()
-    {
+    public int getCurrentPlayerNumber() {
         return mFirstPlayerTurn ? 1 : 2;
     }
 
-    public int getNumberOfGamesPlayed ()
-    {
+    public int getNumberOfGamesPlayed() {
         return mNumberOfGamesPlayed;
     }
 
-    public int getStonesRemaining ()
-    {
+    public int getStonesRemaining() {
         return mPileCurrent;
     }
 
-    public String getRules ()
-    {
+    public String getRules() {
         return "13 Stones is a simple game. Game play begins with a pile of " +
                 mPileStart + " stones.\n\n" +
                 "Players each take one turn per round removing " +
@@ -131,10 +111,9 @@ public class ThirteenStones
      * @param json The serialized String of the game object
      * @return The game object
      */
-    public static ThirteenStones getGameFromJSON (String json)
-    {
-        Gson gson = new Gson ();
-        return gson.fromJson (json, ThirteenStones.class);
+    public static ThirteenStones getGameFromJSON(String json) {
+        Gson gson = new Gson();
+        return gson.fromJson(json, ThirteenStones.class);
     }
 
     /**
@@ -143,14 +122,12 @@ public class ThirteenStones
      * @param obj Game Object to serialize
      * @return JSON-formatted String
      */
-    public static String getJSONFromGame (ThirteenStones obj)
-    {
-        Gson gson = new Gson ();
-        return gson.toJson (obj);
+    public static String getJSONFromGame(ThirteenStones obj) {
+        Gson gson = new Gson();
+        return gson.toJson(obj);
     }
 
-    public String getJSONFromCurrentGame()
-    {
+    public String getJSONFromCurrentGame() {
         return getJSONFromGame(this);
     }
 }
