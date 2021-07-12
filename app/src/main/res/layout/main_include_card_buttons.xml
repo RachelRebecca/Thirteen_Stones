@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/double_activity_margin"
     android:alpha=".8"
-    app:cardBackgroundColor="@color/design_default_color_primary"
+    app:cardBackgroundColor="@color/primaryColor"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
