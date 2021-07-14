@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MaterialCardWithBorder"
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:layout_margin="@dimen/default_activity_margin"
-    style="@style/MaterialCardWithBorder"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -17,6 +16,6 @@
         android:layout_margin="@dimen/slim_margin"
         android:background="@color/backgroundDefaultColor"
         android:scaleType="fitXY"
-        android:src="@drawable/stones_13" />
+        app:srcCompat="@drawable/stones_13" />
 
 </com.google.android.material.card.MaterialCardView>

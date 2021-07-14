@@ -5,4 +5,13 @@
         <item name="strokeColor">@color/primaryColor</item>
         <item name="cardBackgroundColor">@color/backgroundDefaultColor</item>
     </style>
+
+    <style name="BorderlessButton13Stones" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline4
+        </item>
+        <item name="android:onClick">pick123</item>
+        <item name="android:textColor">@color/button_color_selector</item>
+    </style>
 </resources>
