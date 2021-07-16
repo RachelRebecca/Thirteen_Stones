@@ -3,9 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="@layout/content_main">
 
-    <include layout="@layout/main_include_instruction_bar" />
+    <include
+        android:id="@+id/top_bar"
+        layout="@layout/main_include_instruction_bar" />
 
-    <include layout="@layout/main_include_card_image_stones" />
+    <include
+        android:id="@+id/card_image_view_stones"
+        layout="@layout/main_include_card_image_stones" />
 
-    <include layout="@layout/main_include_card_buttons" />
+    <include
+        android:id="@+id/card_buttons"
+        layout="@layout/main_include_card_buttons" />
 </merge>

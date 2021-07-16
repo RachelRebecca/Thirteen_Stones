@@ -2,6 +2,7 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_buttons"
     style="@style/MaterialCardWithBorder"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -18,14 +19,17 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/button_one"
             style="@style/BorderlessButton13Stones"
             android:text="@string/one" />
 
         <Button
+            android:id="@+id/button_two"
             style="@style/BorderlessButton13Stones"
             android:text="@string/two" />
 
         <Button
+            android:id="@+id/button_three"
             style="@style/BorderlessButton13Stones"
             android:text="@string/three" />
 

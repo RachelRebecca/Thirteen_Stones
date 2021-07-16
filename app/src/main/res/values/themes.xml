@@ -27,7 +27,7 @@
         <item name="android:background">@drawable/splash_background</item>
     </style>
 
-    <style name="Theme.ThirteenStones.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.ThirteenStones.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 
-    <style name="Theme.ThirteenStones.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.ThirteenStones.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 </resources>

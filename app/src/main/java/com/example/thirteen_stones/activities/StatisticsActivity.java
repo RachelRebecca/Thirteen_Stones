@@ -3,6 +3,8 @@ package com.example.thirteen_stones.activities;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.thirteen_stones.databinding.ActivityMainBinding;
+import com.example.thirteen_stones.databinding.MainIncludeBottomBarAndFabBinding;
 import com.example.thirteen_stones.models.ThirteenStones;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -25,6 +27,8 @@ import java.util.Locale;
 public class StatisticsActivity extends AppCompatActivity {
 
     private ActivityStatisticsBinding binding;
+    private ActivityMainBinding activityMainBinding;
+    private MainIncludeBottomBarAndFabBinding bottomBarAndFabBinding;
 
     private TextView tvDataGamesPlayed,
             tvDataPlayer1Wins, tvDataPlayer1WinsPercent,
@@ -35,7 +39,15 @@ public class StatisticsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_statistics);
+
+        binding = ActivityStatisticsBinding.inflate(getLayoutInflater());
+       // activityMainBinding = ActivityMainBinding.bind(binding.getRoot());
+        //bottomBarAndFabBinding = MainIncludeBottomBarAndFabBinding.bind(binding.getRoot());
+
+
+        //setContentView(R.layout.activity_statistics);
+        setContentView(binding.getRoot());
+
         setupToolbar();
         setupFAB();
         setupViews();
@@ -44,6 +56,7 @@ public class StatisticsActivity extends AppCompatActivity {
     }
 
     private void setupToolbar() {
+     //   Toolbar toolbar = activityMainBinding.includeToolbar.toolbar;
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() !=null)
@@ -51,6 +64,7 @@ public class StatisticsActivity extends AppCompatActivity {
     }
 
     private void setupFAB() {
+        //FloatingActionButton fab = bottomBarAndFabBinding.fab;
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,11 +75,19 @@ public class StatisticsActivity extends AppCompatActivity {
     }
 
     private void setupViews() {
+        /*
         tvDataGamesPlayed = findViewById(R.id.tv_data_games_played);
         tvDataPlayer1Wins = findViewById(R.id.tv_data_player1_wins);
         tvDataPlayer1WinsPercent = findViewById(R.id.tv_data_player1_win_percent);
         tvDataPlayer2Wins = findViewById(R.id.tv_data_player2_wins);
         tvDataPlayer2WinsPercent = findViewById(R.id.tv_data_player2_win_percent);
+         */
+
+        tvDataGamesPlayed = binding.includeContentStatistics.tvDataGamesPlayed;
+        tvDataPlayer1Wins = binding.includeContentStatistics.tvDataPlayer1Wins;
+        tvDataPlayer1WinsPercent = binding.includeContentStatistics.tvDataPlayer1WinPercent;
+        tvDataPlayer2Wins = binding.includeContentStatistics.tvDataPlayer2Wins;
+        tvDataPlayer2WinsPercent = binding.includeContentStatistics.tvDataPlayer2WinPercent;
     }
 
     private void getIncomingData() {

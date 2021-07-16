@@ -4,4 +4,6 @@
     <color name="secondaryTextColoredColor">@color/primaryColor</color>
     <color name="backgroundColoredColor">@color/primaryDarkColor</color>
     <color name="backgroundDefaultColor">@android:color/background_dark</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#ffffff</color>
 </resources>

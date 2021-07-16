@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.thirteen_stones.R;
+import com.example.thirteen_stones.databinding.MainIncludeAllContentItemsBinding;
 import com.example.thirteen_stones.databinding.MainIncludeBottomBarAndFabBinding;
 import com.example.thirteen_stones.lib.DialogUtils;
 import com.example.thirteen_stones.models.ThirteenStones;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private MainIncludeBottomBarAndFabBinding bottomBarAndFabBinding;
+    private MainIncludeAllContentItemsBinding allContentItemsBinding;
 
     private ThirteenStones mGame;
     private TextView mTvStatusBarCurrentPlayer, mTvStatusBarStonesRemaining;
@@ -61,23 +63,28 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        bottomBarAndFabBinding = MainIncludeBottomBarAndFabBinding.bind(binding.getRoot());
-        setContentView(binding.getRoot());
-
-        //setSupportActionBar(binding.getRoot().findViewById(R.id.toolbar));
-        // the above works, but this is better:
-        setSupportActionBar(binding.includeToolbar.toolbar);
-
+        setContentView();
+        setToolbar();
         setUpViews();
         setUpImagesIntArray();
         setUpFAB();
         startFirstGame();
-
-
         setUpFAB();
 
         //bottomBarAndFabBinding.tvStatusCurrentPlayer.setText("Welcome");
+    }
+
+    private void setToolbar() {
+        //setSupportActionBar(binding.getRoot().findViewById(R.id.toolbar));
+        // the above works, but this is better:
+        setSupportActionBar(binding.includeToolbar.toolbar);
+    }
+
+    private void setContentView() {
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        bottomBarAndFabBinding = MainIncludeBottomBarAndFabBinding.bind(binding.getRoot());
+        allContentItemsBinding = MainIncludeAllContentItemsBinding.bind(binding.getRoot());
+        setContentView(binding.getRoot());
     }
 
     private void setUpFAB() {
@@ -92,12 +99,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpViews() {
-        mTvStatusBarCurrentPlayer = findViewById(R.id.tv_status_current_player);
-        mTvStatusBarStonesRemaining = findViewById(R.id.tv_status_stones_remaining);
+        mTvStatusBarCurrentPlayer = bottomBarAndFabBinding.tvStatusCurrentPlayer;
+        mTvStatusBarStonesRemaining = bottomBarAndFabBinding.tvStatusStonesRemaining;
+
         mSnackBar =
                 Snackbar.make(findViewById(android.R.id.content), getString(R.string.welcome),
                         Snackbar.LENGTH_LONG);
-        mImageViewStones = findViewById(R.id.image_view_stones);
+        mImageViewStones = allContentItemsBinding.cardImageViewStones.imageViewStones;
+
     }
 
     private void setUpImagesIntArray() {
