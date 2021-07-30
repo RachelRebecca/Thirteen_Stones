@@ -1,14 +1,13 @@
 package com.example.thirteen_stones.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.thirteen_stones.R;
 import com.example.thirteen_stones.databinding.MainIncludeAllContentItemsBinding;
 import com.example.thirteen_stones.databinding.MainIncludeBottomBarAndFabBinding;
-import com.example.thirteen_stones.lib.DialogUtils;
 import com.example.thirteen_stones.models.ThirteenStones;
-import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
@@ -29,7 +28,8 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
-import static com.example.thirteen_stones.lib.DialogUtils.showInfoDialog;
+import static androidx.preference.PreferenceManager.getDefaultSharedPreferences;
+import static com.example.thirteen_stones.lib.Utils.showInfoDialog;
 import static com.example.thirteen_stones.models.ThirteenStones.getGameFromJSON;
 import static com.example.thirteen_stones.models.ThirteenStones.getJSONFromGame;
 
@@ -46,16 +46,22 @@ public class MainActivity extends AppCompatActivity {
 
     private int[] mImages;
 
+    private boolean mUseAutoSave; //win on last pick is set in the model
+
+    private final String mKEY_GAME = "GAME";
+    private String mKEY_AUTO_SAVE;
+    private String mKEY_WIN_ON_LAST_PICK;
+
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString("GAME", getJSONFromGame(mGame));
+        outState.putString(mKEY_GAME, getJSONFromGame(mGame));
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        mGame = getGameFromJSON(savedInstanceState.getString("GAME"));
+        mGame = getGameFromJSON(savedInstanceState.getString(mKEY_GAME));
         updateUI();
     }
 
@@ -92,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
         bottomBarAndFabBinding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Win the game by making the other player remove the final" +
+                        " stone. Have fun!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -226,20 +233,25 @@ public class MainActivity extends AppCompatActivity {
 
     private void showSettings() {
         dismissSnackBarIfShown();
-        //Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-        //startActivityForResult(intent, 1);
+        Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+        startActivityForResult(intent, 1);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == 1) {
-            applySettingsChanges();
+            restoreOrSetFromPreferences_AllAppAndGameSettings();
+
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
-    private void applySettingsChanges() {
-        // Not Yet Implemented
+    private void restoreOrSetFromPreferences_AllAppAndGameSettings(){
+        SharedPreferences sp = getDefaultSharedPreferences(this);
+        mUseAutoSave = sp.getBoolean(mKEY_AUTO_SAVE, true);
+        mGame.setWinnerIsLastPlayerToPick(sp.getBoolean(mKEY_WIN_ON_LAST_PICK, false));
     }
+
+
 }

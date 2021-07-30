@@ -22,7 +22,7 @@
 
     <include
         android:id="@+id/card_image_view_stones"
-        layout="@layout/main_include_card_image_stones"
+        layout="@layout/multi_include_card_image_stones"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="@dimen/default_activity_margin"

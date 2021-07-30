@@ -27,8 +27,6 @@ import java.util.Locale;
 public class StatisticsActivity extends AppCompatActivity {
 
     private ActivityStatisticsBinding binding;
-    private ActivityMainBinding activityMainBinding;
-    private MainIncludeBottomBarAndFabBinding bottomBarAndFabBinding;
 
     private TextView tvDataGamesPlayed,
             tvDataPlayer1Wins, tvDataPlayer1WinsPercent,
@@ -41,9 +39,6 @@ public class StatisticsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         binding = ActivityStatisticsBinding.inflate(getLayoutInflater());
-       // activityMainBinding = ActivityMainBinding.bind(binding.getRoot());
-        //bottomBarAndFabBinding = MainIncludeBottomBarAndFabBinding.bind(binding.getRoot());
-
 
         //setContentView(R.layout.activity_statistics);
         setContentView(binding.getRoot());
@@ -83,11 +78,11 @@ public class StatisticsActivity extends AppCompatActivity {
         tvDataPlayer2WinsPercent = findViewById(R.id.tv_data_player2_win_percent);
          */
 
-        tvDataGamesPlayed = binding.includeContentStatistics.tvDataGamesPlayed;
-        tvDataPlayer1Wins = binding.includeContentStatistics.tvDataPlayer1Wins;
-        tvDataPlayer1WinsPercent = binding.includeContentStatistics.tvDataPlayer1WinPercent;
-        tvDataPlayer2Wins = binding.includeContentStatistics.tvDataPlayer2Wins;
-        tvDataPlayer2WinsPercent = binding.includeContentStatistics.tvDataPlayer2WinPercent;
+        tvDataGamesPlayed = binding.includeContentStatistics.includeCardScroll.includeStatistics.tvDataGamesPlayed;
+        tvDataPlayer1Wins = binding.includeContentStatistics.includeCardScroll.includeStatistics.tvDataPlayer1Wins;
+        tvDataPlayer1WinsPercent = binding.includeContentStatistics.includeCardScroll.includeStatistics.tvDataPlayer1WinPercent;
+        tvDataPlayer2Wins = binding.includeContentStatistics.includeCardScroll.includeStatistics.tvDataPlayer2Wins;
+        tvDataPlayer2WinsPercent = binding.includeContentStatistics.includeCardScroll.includeStatistics.tvDataPlayer2WinPercent;
     }
 
     private void getIncomingData() {

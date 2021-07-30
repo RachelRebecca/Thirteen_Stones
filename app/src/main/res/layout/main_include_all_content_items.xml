@@ -9,7 +9,7 @@
 
     <include
         android:id="@+id/card_image_view_stones"
-        layout="@layout/main_include_card_image_stones" />
+        layout="@layout/multi_include_card_image_stones" />
 
     <include
         android:id="@+id/card_buttons"
