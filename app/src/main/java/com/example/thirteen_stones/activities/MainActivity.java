@@ -10,6 +10,10 @@ import com.example.thirteen_stones.databinding.MainIncludeBottomBarAndFabBinding
 import com.example.thirteen_stones.models.ThirteenStones;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,6 +57,49 @@ public class MainActivity extends AppCompatActivity {
     private String mKEY_WIN_ON_LAST_PICK;
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        saveOrDeleteGameInSharedPrefs();
+    }
+
+    private void saveOrDeleteGameInSharedPrefs() {
+        SharedPreferences defaultSharedPreferences = getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = defaultSharedPreferences.edit();
+
+        // Save current game or remove any prior game to/from default shared preferences
+        if (mUseAutoSave)
+            editor.putString(mKEY_GAME, mGame.getJSONFromCurrentGame());
+        else
+            editor.remove(mKEY_GAME);
+
+        editor.apply();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        restoreFromPreferences_SavedGameIfAutoSaveWasSetOn();
+        restoreOrSetFromPreferences_AllAppAndGameSettings();
+    }
+    private void restoreFromPreferences_SavedGameIfAutoSaveWasSetOn() {
+        SharedPreferences defaultSharedPreferences = getDefaultSharedPreferences(this);
+        if (defaultSharedPreferences.getBoolean(mKEY_AUTO_SAVE,true)) {
+            String gameString = defaultSharedPreferences.getString(mKEY_GAME, null);
+            if (gameString!=null) {
+                mGame = ThirteenStones.getGameFromJSON(gameString);
+                updateUI();
+            }
+        }
+    }
+
+    private void restoreOrSetFromPreferences_AllAppAndGameSettings() {
+        SharedPreferences sp = getDefaultSharedPreferences(this);
+        mUseAutoSave = sp.getBoolean(mKEY_AUTO_SAVE, true);
+        mGame.setWinnerIsLastPlayerToPick(sp.getBoolean(mKEY_WIN_ON_LAST_PICK, false));
+    }
+
+    @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(mKEY_GAME, getJSONFromGame(mGame));
@@ -68,16 +115,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView();
         setToolbar();
         setUpViews();
         setUpImagesIntArray();
         setUpFAB();
+        setupFields();
         startFirstGame();
-        setUpFAB();
+    }
 
-        //bottomBarAndFabBinding.tvStatusCurrentPlayer.setText("Welcome");
+
+    private void setupFields() {
+        mKEY_AUTO_SAVE = getString(R.string.auto_save_key);
+        mKEY_WIN_ON_LAST_PICK = getString(R.string.win_on_last_pick_key);
     }
 
     private void setToolbar() {
@@ -231,27 +281,25 @@ public class MainActivity extends AppCompatActivity {
                         "\nAndroid game by SA.\nmintedtech@gmail.com");
     }
 
+
     private void showSettings() {
         dismissSnackBarIfShown();
         Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-        startActivityForResult(intent, 1);
+        settingsLauncher.launch (intent);
+       // startActivityForResult(intent, 1);
     }
+
+    ActivityResultLauncher<Intent> settingsLauncher = registerForActivityResult (
+            new ActivityResultContracts.StartActivityForResult (),
+            result -> restoreOrSetFromPreferences_AllAppAndGameSettings ());
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == 1) {
             restoreOrSetFromPreferences_AllAppAndGameSettings();
-
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-
-    private void restoreOrSetFromPreferences_AllAppAndGameSettings(){
-        SharedPreferences sp = getDefaultSharedPreferences(this);
-        mUseAutoSave = sp.getBoolean(mKEY_AUTO_SAVE, true);
-        mGame.setWinnerIsLastPlayerToPick(sp.getBoolean(mKEY_WIN_ON_LAST_PICK, false));
-    }
-
 
 }

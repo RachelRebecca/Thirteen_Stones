@@ -12,7 +12,6 @@
     <color name="primaryTextColoredColor">@color/primaryDarkColor</color>
     <color name="secondaryTextColoredColor">@color/primaryColor</color>
     <color name="backgroundColoredColor">@color/primaryLightColor</color>
-
     <color name="backgroundDefaultColor">@android:color/background_light</color>
     
 
