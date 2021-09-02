@@ -22,4 +22,7 @@
             app:summaryOff="@string/win_on_last_pick_on"
             app:summaryOn="@string/win_on_last_pick_off"
             app:title="@string/win_on_last_pick_title" />
-    </PreferenceCategory></PreferenceScreen>
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

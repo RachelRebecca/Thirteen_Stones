@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         restoreFromPreferences_SavedGameIfAutoSaveWasSetOn();
         restoreOrSetFromPreferences_AllAppAndGameSettings();
     }
+
     private void restoreFromPreferences_SavedGameIfAutoSaveWasSetOn() {
         SharedPreferences defaultSharedPreferences = getDefaultSharedPreferences(this);
         if (defaultSharedPreferences.getBoolean(mKEY_AUTO_SAVE,true)) {
